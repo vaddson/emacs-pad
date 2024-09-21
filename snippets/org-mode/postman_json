@@ -1,0 +1,41 @@
+# -*- mode: snippet -*-
+# name: Postman Simulator JSON
+# key: jpostman_
+# --
+
+# {{{ Помещаем URL без параметров сюда: }}}
+
+#+name: url
+GET ${https://www.aaa.ru}
+
+# {{{ URL-параметры размещаем в этой таблице: }}}
+
+#+name: params
+| param | значение |
+|       |          |
+
+#+name: quoted
+#+begin_src python :var url=url :var params=params :results raw drawer :exports results
+from urllib.parse import quote, unquote
+url = url.strip()
+vals = [f"{k}={quote(unquote(str(v)))}" for k, v in params if k]
+return "?".join([url, "&".join(vals)]) if vals else url
+#+end_src
+
+# {{{ Получаем ответ (C-c C-c) и ... }}}
+
+#+begin_src bash :var request=quoted :results raw :exports none
+echo "#+name: result"
+echo "#+begin_export json"
+curl -X$request
+echo
+echo "#+end_export"
+#+end_src
+
+# {{{ ... и курочим json-результат (C-c C-c): }}}
+
+#+begin_src python :var text=result :results pp :exports results
+import json
+data = json.loads(text)
+return data
+#+end_src
