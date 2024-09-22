@@ -6,11 +6,6 @@
 
 Конфигурация Emacs для планшета (на Android).
 
-Памятка:
-: git remote add origin git@github.com:vaddson/emacs-pad.git
-: git branch -M master
-: git push -u origin master  # Не доработала команда.
-
 *Как установить?*
 1. Склонировать этот проект настроек в директорию ~/.config (или
    просто завести там ссылку).
@@ -173,18 +168,6 @@ email clients, file templates and snippets."
 #+end_src
 
 * Пока редактор загружается, поправим ему внешний вид
-
-** Меню и панель инструментов (menu and toolbar)
-
-Скроем лишние элементы управления такие, как меню, полосы прокрутки и
-прочее. Меню по-прежнему остается доступно по клавише =F10=.
-
-#+begin_src emacs-lisp :tangle yes
-(menu-bar-mode     -1)  ;; Отключаем графическое меню.
-(tool-bar-mode     -1)  ;; Отключаем tool-bar.
-(scroll-bar-mode   -1)  ;; Отключаем полосы прокрутки.
-(tab-bar-mode      -1)  ;; Отключаем панель закладок.
-#+end_src
 
 ** Красивые темы и установка темы по-умолчанию
    :PROPERTIES:
