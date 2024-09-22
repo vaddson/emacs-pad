@@ -4,7 +4,12 @@
 
 * Вводная
 
-Конфигурация Emacs для планшета. Основное - работа с заметками.
+Конфигурация Emacs для планшета (на Android).
+
+Памятка:
+: git remote add origin git@github.com:vaddson/emacs-pad.git
+: git branch -M master
+: git push -u origin master  # Не доработала команда.
 
 *Как установить?*
 1. Склонировать этот проект настроек в директорию ~/.config (или
@@ -5413,7 +5418,6 @@ treemacs при показе текущего файла в дереве про�
     :ensure t
     :config
     (setq dashboard-center-content t
-          dashboard-startup-banner (my/select-random-banner)
           initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
     (dashboard-setup-startup-hook))
 #+end_src
@@ -5572,25 +5576,6 @@ sudo apt install retext
     :ensure t)
 #+end_src
 
-Поддержка LSP для Json'а больше мешает, чем помогает. Оставляю тут для
-памяти.
-
-#+begin_example emacs-lisp :tangle yes
-(lsp-ensure-server 'json-ls)
-#+end_example
-
-Поддержка tree-sitter. Слабенькая (json-ts-mode не тянет большие
-файлы), но если вручную выставить:
-: (json-ts-mode)
-: (combobulate-mode)
-то, может, редактировать JSON'ы будет удобнее.
-
-#+begin_src emacs-lisp :tangle yes
-(my/treesit-install-language-grammar
- 'json
- "https://github.com/tree-sitter/tree-sitter-json")
-#+end_src
-
 ** Make
 
 #+begin_src emacs-lisp :tangle yes
@@ -5704,44 +5689,6 @@ Pyright может не скачаться с серверов, поэтому �
                            my/config-dir
                            "/lsp-saves/pyright_vanilla.tar.gz "
                            "-C " user-emacs-directory)))
-#+end_src
-
-Поддержка tree-sitter. Подменяем python-mode на python-ts-mode.
-
-#+begin_src emacs-lisp :tangle yes
-(my/treesit-install-language-grammar
- 'python
- "https://github.com/tree-sitter/tree-sitter-python")
-
-(add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
-#+end_src
-
-Настраиваем активацию LSP-сервера.
-
-#+begin_src emacs-lisp :tangle yes
-(mapc (apply-partially (-flip 'add-hook) 'my/python--lsp-exclude-calculator)
-      '(python-mode-hook
-        python-ts-mode-hook))
-
-(defun my/python--lsp-exclude-calculator ()
-    (unless (equal (buffer-file-name)
-                   (my/calculator--get-python-filename))
-        (require 'lsp-pyright)
-        (lsp)))  ; or lsp-deferred
-#+end_src
-
-У LSP-сервера pyright есть *проблема*: Ошибка в буфере *stderr* имеет
-следующее описание:
-: Process terminated. Couldn't find a valid ICU package installed on the
-: system. Set the configuration flag System.Globalization.Invariant to
-: true if you want to run with no globalization support.
-И лечится установкой где-нибудь в [[/etc/profile]] переменной:
-: export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-
-Теперь устанавливаем сам сервер.
-
-#+begin_src emacs-lisp :tangle yes
-(lsp-ensure-server 'pyright)
 #+end_src
 
 Позаботимся о вычислении org-babel блоков.
