@@ -5476,7 +5476,7 @@ sudo apt install retext
 
 #+end_src
 
-** Yaml
+** COMMENT Yaml
 
 Подсветка yaml-файлов.
 
