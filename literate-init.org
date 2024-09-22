@@ -3121,6 +3121,12 @@ emacs-клиента.
 (define-key org-mode-map (kbd "C-,") nil)
 #+end_src
 
+На планшете раскрытие заголовков по TAB приходится назначать.
+
+#+begin_src emacs-lisp :tangle yes
+(define-key evil-motion-state-map (kbd "<TAB>") nil)
+#+end_src
+
 ** Переход по ссылкам
 
 Вопреки описаниям (а, может, я не так все понимаю) переход к файлу по
