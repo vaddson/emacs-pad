@@ -4,7 +4,30 @@
 
 * Вводная
 
-Конфигурация Emacs для планшета (на Android).
+Конфигурация Emacs для планшета (на Android) под Termux.
+
+Нужна в качестве мобильного заметочника на базе Org-Roam.
+
+Рассчитана под чистую консоль, поэтому здесь отсутствует все, что
+связано с картинками, фреймами, элементами GUI и прочей графикой.
+
+*Подготовка к установке*
+1. Установить на устройство магазин F-Droid с сайта
+   https://f-droid.org/.
+2. Через F-Droid установить Termux и запустить его.
+3. Обновить все пакеты командами:
+   : pkg upgrade
+   : pkg update
+4. Установить openssl:
+   : pkg install openssl
+5. Установить Emacs:
+   : pkg install emacs
+6. Если отсутствуют, то установить также
+   gcc, g++, git и python.
+7. Установить словарик Hunspell:
+   : pkg install hunspell
+8. Установить словарик StarDict:
+   : pkg install sdcv
 
 *Как установить?*
 1. Склонировать этот проект настроек в директорию ~/.config (или
@@ -190,10 +213,10 @@ email clients, file templates and snippets."
 (use-package doom-themes
     :ensure t
     :config
-    (load-theme 'doom-one t)
+    ;; (load-theme 'doom-one t)
     ;; (load-theme 'doom-gruvbox-light t)
     ;; (load-theme 'doom-gruvbox t)
-    ;; (load-theme 'doom-molokai t)
+    (load-theme 'doom-molokai t)
     )
 (use-package modus-themes
     :ensure t)
