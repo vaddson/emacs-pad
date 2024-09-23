@@ -2072,8 +2072,6 @@ Spacemacs. Код находится в файле [[./funcs.el][funcs.el]].
                "b" '(:ignore t :which-key "buffers")
                "b b" '(counsel-projectile-switch-to-buffer
                        :which-key "Switch buffer in project")
-               "SPC" '(counsel-projectile-switch-to-buffer
-                       :which-key "Switch buffer in project")
                "b B" '(ivy-switch-buffer :which-key "Switch buffer")
                ;; "b B" '(counsel-switch-buffer :which-key "Switch buffer")
                "b d" '(kill-current-buffer :which-key "Kill buffer")
@@ -5358,6 +5356,9 @@ treemacs при показе текущего файла в дереве про�
 (my/leader-def nil 'override
     "s g" '(sdcv-search-input :which-key "Dictionary search word by input")
     "s w" '(sdcv-search-pointer :which-key "Dictionary search at point"))
+
+(my/leader-def nil 'sdcv-mode-map
+               "SPC" '(sdcv-search-input :which-key "Dictionary search word by input"))
 #+end_src
 
 * Панель на старте с логотипом (dashboard)
