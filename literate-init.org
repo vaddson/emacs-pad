@@ -5126,6 +5126,27 @@ treemacs при показе текущего файла в дереве про�
                "SPC" '(sdcv-search-input :which-key "Dictionary search word by input"))
 #+end_src
 
+Сделаем отдельное рабочее пространство для словарика, чтобы быстро его
+запускать при чтении.
+
+#+begin_src emacs-lisp :tangle yes
+(defun my/workspace-dictionary ()
+    (interactive)
+    (let* ((name "Dictionary")
+           (text "hello"))
+        (my/set-title-bar-and-workspace-interactive name)
+        (sdcv-search-input text)
+        (switch-to-buffer "*SDCV*")
+        (delete-other-windows)))
+#+end_src
+
+И повесим создание рабочего пространства словаря на горячие клавиши.
+
+#+begin_src emacs-lisp :tangle yes
+(my/leader-def nil 'override
+               "o i" '(my/workspace-dictionary :which-key "Dictionary"))
+#+end_src
+
 * Панель на старте с логотипом (dashboard)
 
 ** Настройка панели
