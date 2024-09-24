@@ -1,4 +1,4 @@
-#+title: Конфигурация под ванильный Emacs
+#+title: Конфигурация Emacs под Termux (для планшета)
 #+startup: content
 #+startup: noindent
 
