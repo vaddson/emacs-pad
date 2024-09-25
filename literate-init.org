@@ -5141,10 +5141,12 @@ treemacs при показе текущего файла в дереве про�
     (interactive)
     (let* ((name "Dictionary")
            (text "hello"))
-        (my/set-title-bar-and-workspace-interactive name)
-        (sdcv-search-input text)
-        (switch-to-buffer "*SDCV*")
-        (delete-other-windows)))
+        (if (member name persp-names-cache)
+            (persp-frame-switch name)
+            (progn (my/set-title-bar-and-workspace-interactive name)
+                   (sdcv-search-input text)
+                   (switch-to-buffer "*SDCV*")
+                   (delete-other-windows)))))
 #+end_src
 
 И повесим создание рабочего пространства словаря на горячие клавиши.
