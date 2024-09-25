@@ -31,6 +31,12 @@
    : pkg install sdcv
 9. Если отсутствуют, то установить также
    gcc, g++, git и python.
+10. Для удобства в файле настроек [[~/.termux/termux.properties]]
+    прописать виртуальные клавиши:
+    #+begin_src conf
+extra-keys = [['ESC','~','/',':',';','UP','-','{','}'], \
+              ['TAB','CTRL','ALT','`','LEFT','DOWN','RIGHT','[',']']]
+    #+end_src
 
 *Установка конфигурации Emacs*
 
