@@ -19,16 +19,18 @@
 3. Обновить все пакеты командами:
    : pkg upgrade
    : pkg update
-4. Установить openssl:
-   : pkg install openssl
-5. Установить Emacs:
+4. Установить Emacs:
    : pkg install emacs
-6. Если отсутствуют, то установить также
-   gcc, g++, git и python.
+5. Установить openssl:
+   : pkg install openssl
+6. Установить RipGrep:
+   : pkg install ripgrep
 7. Установить словарик Hunspell:
    : pkg install hunspell
 8. Установить словарик StarDict:
    : pkg install sdcv
+9. Если отсутствуют, то установить также
+   gcc, g++, git и python.
 
 *Установка конфигурации Emacs*
 
