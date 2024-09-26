@@ -34,8 +34,8 @@
 10. Для удобства в файле настроек [[~/.termux/termux.properties]]
     прописать виртуальные клавиши:
     #+begin_src conf
-extra-keys = [['ESC',{key:'CTRL',display:C},{key:'ALT',display:M},':','`','UP','-','{','}'], \
-              ['~','TAB','/',';','LEFT','DOWN','RIGHT','[',']']]
+extra-keys = [['ESC',{key:'CTRL',display:C},{key:'ALT',display:M},':','[','`','UP','-','{'], \
+              ['~','TAB','/',';',']','LEFT','DOWN','RIGHT','}']]
     #+end_src
 
 *Установка конфигурации Emacs*
