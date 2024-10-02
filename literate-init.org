@@ -3099,15 +3099,24 @@ emacs-клиента.
 
 ** Клавиши для работы в org-mode
 
-Вернем привычные горячие клавиши из Doom для evil-mode.
+Подготовимся и дополним функцию org-id-copy. Добавим туда еще одно
+свойство CUSTOM_ID для перекрестных ссылок между файлами. Также
+исправим баг, где при значении переменной org-fold-core-style,
+установленной в 'overlays, возникали неудобства со схлопыванием
+drawer'ов.
 
 #+begin_src emacs-lisp :tangle yes
 (defun my/org-id-copy ()
     (interactive)
-    (when-let (id (org-id-get nil 'create))
-        (org-set-property "CUSTOM_ID" id)
-        (org-kill-new id)))
+    (let ((org-fold-core-style 'text-properties))
+        (when-let (id (org-id-get nil 'create))
+            (org-set-property "CUSTOM_ID" id)
+            (org-kill-new id))))
+#+end_src
 
+Вернем привычные горячие клавиши из Doom для evil-mode.
+
+#+begin_src emacs-lisp :tangle yes
 (my/evil-define-key '(normal visual motion) 'org-mode-map
     "[ s" #'evil-prev-flyspell-error
     "] s" #'evil-next-flyspell-error
