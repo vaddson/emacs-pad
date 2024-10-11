@@ -2812,6 +2812,8 @@ Return history hash-map."
                "TAB" '(:ignore t :which-key "workspaces")
                "TAB ." '(my/persp-frame-switch
                          :which-key "Switch or create workspace")
+               "TAB TAB" '(my/persp-frame-switch
+                         :which-key "Switch or create workspace")
                "TAB a" '(persp-add-buffer :which-key "Add buffer to workspace")
                "TAB r" '(persp-rename :which-key "Rename workspace")
                "TAB d" '(persp-kill :which-key "Delete workspace")
