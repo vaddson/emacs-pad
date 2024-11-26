@@ -5215,6 +5215,102 @@ treemacs при показе текущего файла в дереве про�
                "o i" '(my/workspace-dictionary :which-key "Dictionary"))
 #+end_src
 
+** Калькулятор на Python
+
+Из удобств установлен пакетик =live-py-mode=. Установим его.
+
+#+begin_src emacs-lisp :tangle yes
+(use-package live-py-mode
+    :ensure t)
+#+end_src
+
+При запуске =M-x live-py-mode= в открытом py-файле (ассоциация буфера
+с файлом - это важно, при этом сам файл на диске может и
+отсутствовать) окошко делится пополам, и в правом окне видим
+результаты python-выражений из левого окна. Получился такой удобный
+python-калькулятор (и не только).
+
+Запилим функцию для быстрого создания калькулятора из всего
+вышесказанного.
+
+Ниже имя файла для буфера с 'калькулятором' и имя фрейма для него.
+
+#+begin_src emacs-lisp :tangle yes
+(setq my/calculator-python-filename "_calculator-python.py"
+      my/calculator-python-framename "*-calculator-python-*")
+
+(defun my/calculator--get-python-filename ()
+    (let ((filename (concat (temporary-file-directory)
+                            "/" my/calculator-python-filename)))
+        (string-replace "//" "/" filename)))
+#+end_src
+
+Позаботимся о вставке выделенного текста в буфер 'калькулятора'.
+
+#+begin_src emacs-lisp :tangle yes
+(defun my/get-selection-and-deselect ()
+    "Return selected text in current buffer or empty string."
+    (if (region-active-p)
+            (let ((selection (buffer-substring-no-properties (region-beginning) (region-end))))
+                (deactivate-mark)
+                selection)
+        ""))
+#+end_src
+
+'Калькулятор' создается в отдельном фрейме.  Если перед этим в
+активном буфере был выделен текст, то этот текст будет добавлен в
+буфер 'калькулятора'.  Результат кода ниже - функция, которая
+открывает или закрывает фрейм с калькулятором (если тот был открыт).
+
+#+begin_src emacs-lisp :tangle yes
+(defun my/calculator-python-open (&optional frame)
+    "Open a frame with 'calulator' on live-py-mode."
+    (interactive)
+    (let* ((selection (my/get-selection-and-deselect))
+           (buffer (find-file-noselect (my/calculator--get-python-filename)))
+           (frame (or frame (make-frame))))
+        (select-frame-set-input-focus frame)
+        (set-frame-name my/calculator-python-framename)
+        (switch-to-buffer buffer)
+        (live-py-mode)
+        (when (not (string-empty-p selection))
+            (goto-char (point-max))
+            (if (> (point-max) 1)
+                    (progn (insert "\n\n")
+                           (save-excursion (insert "# -----\n")
+                                           (insert selection)))
+                (save-excursion (insert selection))))
+        (set-buffer-modified-p nil)))
+
+(defun my/calculator-python-close (frame)
+    "Delete the frame. Raise calculator buffer and set it to unmodified."
+    (select-frame-set-input-focus frame)
+    (switch-to-buffer my/calculator-python-filename)
+    (live-py-mode -1)
+    (set-buffer-modified-p nil)
+    (let ((text (buffer-string)))
+        (delete-frame nil t)
+        (with-current-buffer (find-file-noselect (my/calculator--get-python-filename))
+            (erase-buffer)
+            (insert text)
+            (set-buffer-modified-p nil))))
+
+(defun my/calculator-python-toggle ()
+    "Open or close frame with 'calulator' on live-py-mode."
+    (interactive)
+    (let ((frame (my/get-frame-by-name my/calculator-python-framename)))
+        (if frame
+                (my/calculator-python-close frame)
+            (my/calculator-python-open))))
+#+end_src
+
+Горячие клавиши для python-калькулятора.
+
+#+begin_src emacs-lisp :tangle yes
+(my/leader-def nil 'override
+    "o c" '(my/calculator-python-toggle :which-key "Calculator live on Python"))
+#+end_src
+
 * Панель на старте с логотипом (dashboard)
 
 ** Настройка панели
