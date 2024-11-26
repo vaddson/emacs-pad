@@ -7,6 +7,7 @@
 Конфигурация Emacs для планшета (Android) в терминале Termux.
 
 Нужна в качестве мобильного заметочника на базе Org-Roam.
+Также включает в себя орфографию, словарик и калькулятор.
 
 Рассчитана под чистую консоль, поэтому здесь отсутствует все, что
 связано с картинками, фреймами, элементами GUI и прочей графикой.
@@ -29,9 +30,13 @@
    : pkg install hunspell
 8. Установить словарик StarDict:
    : pkg install sdcv
-9. Если отсутствуют, то установить также
-   gcc, g++, git и python.
-10. Для удобства в файле настроек [[~/.termux/termux.properties]]
+9. Установить Python для живого калькулятора:
+   : pkg install python
+   : pkg install x11-repo
+   : pkg install tigervnc
+10. Если отсутствуют, то установить также
+    gcc, g++, git и python.
+11. Для удобства в файле настроек [[~/.termux/termux.properties]]
     прописать виртуальные клавиши:
     #+begin_src conf
 extra-keys = [['ESC',{key:'CTRL',display:C},{key:'ALT',display:M},':','~','{'   ,'UP'  ,'}'    ,'['], \
