@@ -35,7 +35,7 @@
    : pkg install x11-repo
    : pkg install tigervnc
 10. Если отсутствуют, то установить также
-    gcc, g++, git и python.
+    gcc, g++ и git.
 11. Для удобства в файле настроек [[~/.termux/termux.properties]]
     прописать виртуальные клавиши:
     #+begin_src conf
