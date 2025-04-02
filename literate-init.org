@@ -858,7 +858,7 @@ Find application name in my/application-name variable."
 забываем об этом.
 
 #+begin_src emacs-lisp :tangle yes
-(setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-scroll-amount '(2 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 #+end_src
